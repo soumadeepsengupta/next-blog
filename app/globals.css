@@ -1,8 +1,10 @@
+/* === IMPORTS (must be first) === */
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
-/* === THEME VARIABLES === */
+/* === THEME VARIABLES (Tailwind v4 CSS-first) === */
 @theme {
+  /* Colors */
   --color-primary-100: #FFE8F0;
   --color-primary: #F84F4F;
   --color-secondary: #FBE843;
@@ -15,17 +17,21 @@
   --color-white-100: #F7F7F7;
   --color-white: #FFFFFF;
 
+  /* Fonts */
   --font-work-sans: "Work Sans", sans-serif;
 
+  /* Radius & shadows */
   --radius: 0.5rem;
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --shadow-100: 2px 2px 0px 0px rgb(0, 0, 0);
-  --shadow-200: 2px 2px 0px 2px rgb(0, 0, 0);
-  --shadow-300: 2px 2px 0px 2px rgb(238, 43, 105);
+  /* Shadows (box-shadow values) */
+  --shadow-100: 2px 2px 0px 0px rgba(0,0,0,1);
+  --shadow-200: 2px 2px 0px 2px rgba(0,0,0,1);
+  --shadow-300: 2px 2px 0px 2px rgba(238,43,105,1);
 
+  /* Breakpoints if you need them */
   --breakpoint-xs: 475px;
 }
 
@@ -34,97 +40,197 @@
   :root {
     font-family: var(--font-work-sans);
   }
+
+  /* sensible defaults */
+  html, body {
+    height: 100%;
+  }
+
+  /* small helper so font-work-sans is available as a class too */
+  .font-work-sans {
+    font-family: var(--font-work-sans);
+  }
 }
 
-/* === UTILITIES === */
+/* === UTILITIES: variables mapped to class names (so `bg-primary` etc. work) === */
 @layer utilities {
-  .flex-between {
-    @apply flex justify-between items-center;
-  }
+  /* Color helpers */
+  .bg-primary { background-color: var(--color-primary); }
+  .bg-primary-100 { background-color: var(--color-primary-100); }
+  .bg-secondary { background-color: var(--color-secondary); }
 
-  .center {
-    @apply flex justify-center items-center;
-  }
+  .text-black-100 { color: var(--color-black-100); }
+  .text-black-200 { color: var(--color-black-200); }
+  .text-black-300 { color: var(--color-black-300); }
+  .text-black { color: var(--color-black); }
 
+  .text-white-100 { color: var(--color-white-100); }
+  .text-white { color: var(--color-white); }
+
+  /* a handy 80% opacity white for the previously used `text-white-100/80` */
+  .text-white-100-80 { color: rgba(247, 247, 247, 0.8); }
+
+  /* radius / shadow helpers */
+  .radius-lg { border-radius: var(--radius-lg); }
+  .radius-md { border-radius: var(--radius-md); }
+  .radius-sm { border-radius: var(--radius-sm); }
+
+  .shadow-100 { box-shadow: var(--shadow-100); }
+  .shadow-200 { box-shadow: var(--shadow-200); }
+  .shadow-300 { box-shadow: var(--shadow-300); }
+
+  /* layout helpers */
+  .flex-between { @apply flex justify-between items-center; }
+
+  /* Typographic helpers (from your file) */
+  .text-30-extrabold { @apply text-[30px] font-extrabold; color: var(--color-white); }
+  .text-30-bold { @apply text-[30px] font-bold; color: var(--color-black); }
+  .text-30-semibold { @apply font-semibold text-[30px]; color: var(--color-black); }
+  .text-26-semibold { @apply font-semibold text-[26px]; color: var(--color-black); }
+  .text-24-black { @apply text-[24px] font-black; color: var(--color-black); }
+  .text-20-medium { @apply font-medium text-[20px]; color: var(--color-black); }
+  .text-16-medium { @apply font-medium text-[16px]; color: var(--color-black); }
+  .text-14-normal { @apply font-normal text-sm; color: rgba(247,247,247,0.8); } /* matches previous text-white-100/80 */
+
+  /* Container / components translated from your original v3 utilities */
   .red-container {
     @apply w-full min-h-[530px] flex justify-center items-center flex-col py-10 px-6;
     background-color: var(--color-primary);
-    background-image: repeating-linear-gradient(
-      to right,
-      rgba(255,255,255,0.06) 0px,
-      rgba(255,255,255,0.06) 5px,
-      transparent 2px,
-      transparent 100px
-    );
-    background-position: center;
-    background-repeat: repeat-x;
+    position: relative; /* safe for pattern overlay */
+    overflow: hidden;
   }
 
   .tag {
-    @apply bg-secondary px-6 py-3 font-work-sans font-bold rounded-sm uppercase relative;
+    @apply px-6 py-3 font-bold rounded-sm uppercase relative;
+    background-color: var(--color-secondary);
+    font-family: var(--font-work-sans);
   }
 
   .heading {
-    @apply uppercase bg-black px-6 py-3 font-work-sans font-extrabold text-white sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
+    @apply uppercase px-6 py-3 font-extrabold sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-work-sans);
   }
 
   .sub-heading {
-    @apply font-medium text-[20px] text-white max-w-2xl text-center break-words;
+    @apply font-medium text-[20px] max-w-2xl text-center break-words;
+    color: var(--color-white);
   }
 
-  .section_container {
-    @apply px-6 py-10 max-w-7xl mx-auto;
-  }
+  .section_container { @apply px-6 py-10 max-w-7xl mx-auto; }
 
-  .card_grid {
-    @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5;
-  }
+  .card_grid { @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5; }
+  .card_grid-sm { @apply grid sm:grid-cols-2 gap-5; }
 
-  .card_grid-sm {
-    @apply grid sm:grid-cols-2 gap-5;
-  }
+  .no-result { @apply text-sm font-normal; color: var(--color-black-100); }
 
-  .no-result {
-    @apply text-black-100 text-sm font-normal;
-  }
-
-  .profile_container {
-    @apply w-full pb-10 pt-20 px-6 max-w-7xl mx-auto lg:flex-row flex-col flex gap-10;
-  }
+  /* profile */
+  .profile_container { @apply w-full pb-10 pt-20 px-6 max-w-7xl mx-auto lg:flex-row flex-col flex gap-10; }
 
   .profile_card {
-    @apply w-80 px-6 pb-6 pt-20 flex flex-col justify-center items-center bg-primary border-[5px] border-black shadow-[var(--shadow-100)] rounded-[30px] relative z-0 h-fit max-lg:w-full;
+    @apply w-80 px-6 pb-6 pt-20 flex flex-col justify-center items-center border-[5px] rounded-[30px] relative z-0 h-fit;
+    background-color: var(--color-primary);
+    border-color: var(--color-black);
+    box-shadow: var(--shadow-100);
   }
 
   .profile_title {
-    @apply w-11/12 bg-white border-[5px] border-black rounded-[20px] px-5 py-3 absolute -top-9 shadow-[var(--shadow-100)];
+    @apply w-11/12 bg-white border-[5px] rounded-[20px] px-5 py-3 absolute -top-9;
+    border-color: var(--color-black);
+    box-shadow: var(--shadow-100);
   }
 
+  .profile_image { @apply rounded-full object-cover border-[3px]; border-color: var(--color-black); }
+
+  /* misc */
+  .divider { @apply border-dotted max-w-4xl my-10 mx-auto; background-color: #d4d4d4; }
+  .view_skeleton { @apply h-10 w-24 rounded-lg fixed bottom-3 right-3; background-color: #d4d4d4; }
+
+  /* navbar */
+  .avatar { @apply p-0 focus-visible:ring-0 rounded-full drop-shadow-md; background: none; }
+  .dropdown-menu { @apply w-56 border-[5px] bg-white p-5 rounded-2xl; border-color: var(--color-black); }
   .login {
-    @apply border-[5px] py-4 border-black bg-white text-black shadow-[var(--shadow-100)] font-work-sans font-medium hover:shadow-none transition-all duration-500;
+    @apply border-2 p-1 hover:bg-secondary text-black font-medium hover:shadow-2xs transition-all duration-500;
+    border-color: var(--color-black);
+    box-shadow: var(--shadow-100);
+    font-family: var(--font-work-sans);
   }
 
-  .startup-form {
-    @apply max-w-2xl mx-auto bg-white my-10 space-y-8 px-6;
+  /* search form */
+  .search-form {
+    @apply max-w-3xl w-full min-h-[80px] border-[5px] rounded-[80px] text-[24px] mt-8 px-5 flex items-center gap-5;
+    background-color: var(--color-white);
+    border-color: var(--color-black);
+  }
+  .search-input { @apply flex-1 font-bold placeholder:font-semibold w-full h-auto outline-none; color: var(--color-black); }
+  .search-btn { @apply size-[50px] rounded-full flex justify-center items-center; background-color: var(--color-black); }
+
+  /* startup card/form */
+  .startup-card {
+    @apply border-[5px] py-6 px-5 rounded-[22px] transition-all duration-500;
+    background-color: var(--color-white);
+    border-color: var(--color-black);
+    box-shadow: var(--shadow-200);
+  }
+  .startup-card:hover { border-color: var(--color-primary); box-shadow: var(--shadow-300); background-color: var(--color-primary-100); }
+
+  .startup-card_date { @apply font-medium text-[16px] px-4 py-2 rounded-full; background-color: var(--color-primary-100); }
+  .startup-card_desc { @apply font-normal text-[16px] line-clamp-2 my-3; color: var(--color-black-100); }
+  .startup-card_img { @apply w-full h-[164px] rounded-[10px] object-cover; }
+  .startup-card_btn {
+    @apply rounded-full font-medium text-[16px] text-white px-5 py-3;
+    background-color: var(--color-black);
+    box-shadow: var(--shadow-200);
   }
 
-  .startup-form_label {
-    @apply font-bold text-[18px] text-black uppercase;
-  }
+  .startup-card_skeleton { @apply w-full h-96 rounded-[22px]; background-color: #d4d4d4; }
 
+  .startup-form { @apply max-w-2xl mx-auto bg-white my-10 space-y-8 px-6; }
+  .startup-form_label { @apply font-bold text-[18px] text-black uppercase; }
   .startup-form_input {
-    @apply border-[3px] border-black px-5 py-7 text-[18px] text-black font-semibold rounded-full mt-3 placeholder:text-black-300;
+    @apply border-[3px] px-5 py-7 text-[18px] font-semibold rounded-full mt-3;
+    border-color: var(--color-black);
+    color: var(--color-black);
+  }
+  .startup-form_textarea {
+    @apply border-[3px] p-5 text-[18px] font-semibold rounded-[20px] mt-3;
+    border-color: var(--color-black);
+    color: var(--color-black);
+  }
+  .startup-form_error { @apply text-red-500 mt-2 ml-5; }
+  .startup-form_editor { @apply mt-3 border-[3px] text-[18px] font-semibold; border-color: var(--color-black); }
+
+  .startup-form_btn {
+    @apply rounded-full p-5 min-h-[70px] w-full font-bold text-[18px];
+    background-color: var(--color-primary);
+    border: 4px solid var(--color-black);
+    color: var(--color-white);
   }
 
-  /* .pattern {
-    background-image: repeating-linear-gradient(
-      to right,
-      rgba(255,255,255,0.06) 0px,
-      rgba(255,255,255,0.06) 2px,
-      transparent 2px,
-      transparent 40px
+  /* view */
+  .view-container { @apply flex justify-end items-center mt-5 fixed bottom-3 right-3; }
+  .view-text { @apply font-medium text-[16px] px-4 py-2 rounded-lg; background-color: var(--color-primary-100); }
+
+  .category-tag { @apply font-medium text-[16px] px-4 py-2 rounded-full; background-color: var(--color-primary-100); }
+
+  .pattern {
+    background-image: linear-gradient(
+            to right,
+            transparent 49.5%,
+            rgba(251, 232, 67, 0.2) 49.5%,
+            rgba(251, 232, 67, 0.6) 50.5%,
+            transparent 50.5%
     );
+    background-size: 5% 100%;
     background-position: center;
     background-repeat: repeat-x;
-  } */
+  }
+
+  .tag-tri {
+    @apply before:content-[''] before:absolute before:top-2 before:left-2 before:border-t-[10px] before:border-t-black before:border-r-[10px] before:border-r-transparent after:content-[''] after:absolute after:bottom-2 after:right-2 after:border-b-[10px] after:border-b-black after:border-l-[10px] after:border-l-transparent;
+  }
+
+  /* small editor toolbar helper */
+  .w-md-editor-toolbar { padding: 10px !important; }
 }
