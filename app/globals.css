@@ -176,8 +176,8 @@
   .startup-card:hover { border-color: var(--color-primary); box-shadow: var(--shadow-300); background-color: var(--color-primary-100); }
 
   .startup-card_date { @apply font-medium text-[16px] px-4 py-2 rounded-full; background-color: var(--color-primary-100); }
-  .startup-card_desc { @apply font-normal text-[16px] line-clamp-2 my-3; color: var(--color-black-100); }
-  .startup-card_img { @apply w-full h-[164px] rounded-[10px] object-cover; }
+  .startup-card_desc { @apply font-normal text-[16px] line-clamp-2 my-3 mt-4; color: var(--color-black-100); }
+  .startup-card_img { @apply w-full h-[225px] rounded-[10px] object-cover; }
   .startup-card_btn {
     @apply rounded-full font-medium text-[16px] text-white px-5 py-3;
     background-color: var(--color-black);
