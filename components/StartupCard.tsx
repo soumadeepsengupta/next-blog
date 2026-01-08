@@ -1,21 +1,10 @@
 import { Eye } from 'lucide-react';
 import { formatDate } from '../lib/utils';
 import Link from 'next/link';
+import { Button } from './button';
+import { Author,Startup } from '@/sanity.types';
 
-/* ✅ FIX: inline type so StartupTypeCard actually exists */
-type StartupTypeCard = {
-  _id: number | string;
-  _createdAt: Date;
-  views: number;
-  title: string;
-  description: string;
-  image?: string;
-  category: string;
-  author?: {
-    _id: number | string;
-    name: string;
-  };
-};
+export type StartupTypeCard = Omit<Startup, "author"> & {author?:Author};
 
 const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   const { _id, _createdAt, views, author, title, description, image, category } = post;
@@ -23,7 +12,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   return (
     <li className="startup-card group">
       <div className="flex-between">
-        <p className="startup-card_date">{formatDate(String(_createdAt))}</p>
+        <p className="startup-card_date">{formatDate(_createdAt)}</p>
 
         <div className="flex gap-1.5 items-center">
           <Eye size={16} className="text-primary" />
@@ -58,10 +47,13 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
         </div>
       )}
 
-      <div className="mt-4">
-        <Link href={`/search?category=${encodeURIComponent(category)}`}>
-          <span className="category-tag">{category}</span>
+<div className="flex-between gap-3 mt-5">
+        <Link href={`/?query=${category?.toLowerCase()}`}>
+          <p className="text-16-medium">{category}</p>
         </Link>
+        <Button className="startup-card_btn" asChild>
+          <Link href={`/startup/${_id}`}>Details</Link>
+        </Button>
       </div>
     </li>
   );

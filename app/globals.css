@@ -5,7 +5,7 @@
 /* === THEME VARIABLES (Tailwind v4 CSS-first) === */
 @theme {
   /* Colors */
-  --color-primary-100: #FFE8F0;
+  --color-primary-100: #fbc8c8;
   --color-primary: #F84F4F;
   --color-secondary: #FBE843;
 
@@ -98,6 +98,16 @@
     background-color: var(--color-primary);
     position: relative; /* safe for pattern overlay */
     overflow: hidden;
+          background-image: linear-gradient(
+            to right,
+            transparent 49.5%,
+            rgba(251, 232, 67, 0.2) 49.5%,
+            rgba(248, 223, 0, 0.616) 50.5%,
+            transparent 51%
+    );
+    background-size: 5% 100%;
+    background-position: center;
+    background-repeat: repeat-x; 
   }
 
   .tag {
@@ -126,7 +136,7 @@
   .no-result { @apply text-sm font-normal; color: var(--color-black-100); }
 
   /* profile */
-  .profile_container { @apply w-full pb-10 pt-20 px-6 max-w-7xl mx-auto lg:flex-row flex-col flex gap-10; }
+  .profile_container { @apply w-full pb-10 pt-20 px-6 max-w-7xl mx-auto lg:flex-row flex-col flex gap-10;}
 
   .profile_card {
     @apply w-80 px-6 pb-6 pt-20 flex flex-col justify-center items-center border-[5px] rounded-[30px] relative z-0 h-fit;
@@ -173,7 +183,7 @@
     border-color: var(--color-black);
     box-shadow: var(--shadow-200);
   }
-  .startup-card:hover { border-color: var(--color-primary); box-shadow: var(--shadow-300); background-color: var(--color-primary-100); }
+  .startup-card:hover { border-color: var(--color-primary); box-shadow: var(--shadow-300); background-color: var(--color-primary-200); }
 
   .startup-card_date { @apply font-medium text-[16px] px-4 py-2 rounded-full; background-color: var(--color-primary-100); }
   .startup-card_desc { @apply font-normal text-[16px] line-clamp-2 my-3 mt-4; color: var(--color-black-100); }
