@@ -8,6 +8,9 @@ import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import markdownit from "markdown-it";
+import { Suspense } from "react";
+import View from "@/components/View";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const md = new markdownit();
 
@@ -74,6 +77,9 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
         <hr className="divider" />
       </section>
+      <Suspense fallback={<Skeleton className="view_skeleton" />}>
+        <View id={id} />
+      </Suspense>
     </>
   );
 };

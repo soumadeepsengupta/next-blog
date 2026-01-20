@@ -1,7 +1,7 @@
 import { Eye } from 'lucide-react';
 import { formatDate } from '../lib/utils';
 import Link from 'next/link';
-import { Button } from './button';
+import { Button } from './ui/button';
 import { Author,Startup } from '@/sanity.types';
 
 export type StartupTypeCard = Omit<Startup, "author"> & {author?:Author};
