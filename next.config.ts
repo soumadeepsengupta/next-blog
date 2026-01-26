@@ -20,6 +20,12 @@ const nextConfig: NextConfig = {
   devIndicators: {
     position: "bottom-right",
   },
+  outputFileTracingRoot: __dirname,
+  experimental: {
+    outputFileTracingIncludes: {
+      "/*": ["./node_modules/**/*"],
+    },
+  },
 };
 
 export default withSentryConfig(nextConfig, {

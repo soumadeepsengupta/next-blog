@@ -13,7 +13,7 @@ const View = async ({ id }: { id: string }) => {
     async () =>
       await writeClient
         .patch(id)
-        .set({ views: totalViews + 1 })
+        .set({ views: (totalViews || 0) + 1 })
         .commit(),
   );
 
@@ -24,7 +24,7 @@ const View = async ({ id }: { id: string }) => {
       </div>
 
       <p className="view-text">
-        <span className="font-black">Views: {totalViews}</span>
+        <span className="font-black">Views: {totalViews || 0}</span>
       </p>
     </div>
   );

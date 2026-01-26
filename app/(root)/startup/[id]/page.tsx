@@ -11,6 +11,7 @@ import markdownit from "markdown-it";
 import { Suspense } from "react";
 import View from "@/components/View";
 import { Skeleton } from "@/components/ui/skeleton";
+import { auth } from "@/auth";
 
 const md = new markdownit();
 
@@ -18,6 +19,8 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
   const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
+
+const session = await auth();
 
   if (!post) return notFound();
 

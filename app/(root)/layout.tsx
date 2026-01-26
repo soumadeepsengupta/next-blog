@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar';
+import { Toaster } from '@/components/ui/sonner';
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -8,6 +9,7 @@ export default function RootLayout({
 <main className="font-work-sans">
     <Navbar/>
     {children}
+    <Toaster />
 </main>
   );
 }

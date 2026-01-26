@@ -27,7 +27,7 @@ const Navbar = async () => {
                   await signOut({ redirectTo: "/" });
                 }}
               >
-                <button type="submit">
+                <button type="submit" suppressHydrationWarning>
                   <span className="max-sm:hidden login">Logout</span>
                 </button>
               </form>

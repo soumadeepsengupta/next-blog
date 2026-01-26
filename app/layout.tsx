@@ -57,6 +57,9 @@ const workSans = localFont({
 export const metadata: Metadata = {
   title: "Next step",
   description: "Get ready for the next step in your startup journey",
+  icons: {
+    icon: [{ url: "/favicon.ico" }],
+  },
 };
 
 export default function RootLayout({
