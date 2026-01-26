@@ -9,6 +9,11 @@
     "lint": "eslint",
     "typegen": "sanity schema extract --path=./sanity/extract.json && sanity typegen generate"
   },
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom",
+    "next": "$next"
+  },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
     "@sanity/image-url": "^1.2.0",
