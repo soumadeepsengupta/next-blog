@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { auth, signOut, signIn } from "@/auth";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 
 const Navbar = async () => {
@@ -32,14 +33,11 @@ const Navbar = async () => {
                 </button>
               </form>
 
-              <Link href={`/user/${session?.user?.id}`}>
-                <Image 
-                  src={session?.user?.image || "/Logo.svg"} 
-                  alt={session?.user?.name || "User"}
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
+              <Link href={`/user/${session?.id}`}>
+                <Avatar>
+                  <AvatarImage src={session?.user?.image || "/Logo.svg"} alt={session?.user?.name || "User"} />
+                  <AvatarFallback>{session?.user?.name?.charAt(0) || "U"}</AvatarFallback>
+                </Avatar>
               </Link>
             </>
           ) : (

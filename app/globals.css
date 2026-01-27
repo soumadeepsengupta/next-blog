@@ -161,7 +161,7 @@
   .avatar { @apply p-0 focus-visible:ring-0 rounded-full drop-shadow-md; background: none; }
   .dropdown-menu { @apply w-56 border-[5px] bg-white p-5 rounded-2xl; border-color: var(--color-black); }
   .login {
-    @apply border-2 p-1 hover:bg-secondary text-black font-medium hover:shadow-2xs transition-all duration-500;
+    @apply border-3 rounded p-1 hover:bg-secondary text-black font-semibold hover:shadow-2xs transition-all duration-500;
     border-color: var(--color-black);
     box-shadow: var(--shadow-100);
     font-family: var(--font-work-sans);

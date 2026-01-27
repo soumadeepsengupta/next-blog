@@ -29,8 +29,8 @@ const StartupCard = ({ post }: { post: any }) => { // eslint-disable-line @types
           <Link href={`/startup/${_id}`}>{title}</Link>
         </h3>
         </div>
-        <Link href={`/startup/${_id}`}>
-          <img src="https://i.pinimg.com/originals/82/47/0b/82470b4ed44c3edacfcd4201e2297050.jpg" alt="profile" width={48} height={48} className="rounded-full" />
+        <Link href={`/user/${author?._id}`}>
+          <img src={author?.image} alt={author?.name} width={48} height={48} className="rounded-full object-fill" />
         </Link>
       </div>
 
