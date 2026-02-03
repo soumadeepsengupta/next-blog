@@ -1,7 +1,7 @@
-
 import { client } from "@/sanity/lib/client";
 import {
-  STARTUP_BY_ID_QUERY
+  PLAYLIST_BY_SLUG_QUERY,
+  STARTUP_BY_ID_QUERY,
 } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { formatDate } from "@/lib/utils";
@@ -11,34 +11,48 @@ import markdownit from "markdown-it";
 import { Suspense } from "react";
 import View from "@/components/View";
 import { Skeleton } from "@/components/ui/skeleton";
+import StartupCard from "@/components/StartupCard";
 import { auth } from "@/auth";
+
+export const experimental_ppr = true;
 
 const md = new markdownit();
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
-  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
-
-const session = await auth();
+  const [post, playlist] = await Promise.all([
+    client.fetch(STARTUP_BY_ID_QUERY, { id }),
+    client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+      slug: "editor-picks-new",
+    }),
+  ]);
 
   if (!post) return notFound();
 
-  const parsedContent = md.render(post?.pitch || "");
+  const editorPosts = playlist?.select ?? [];
+
+  const session = await auth(); // optional, safe to keep
+
+  const parsedContent = md.render(post.pitch || "");
 
   return (
     <>
-      <section className="red-container min-h-57.5!">
-        <p className="tag">{formatDate(post?._createdAt)}</p>
-
+      {/* HERO */}
+      <section className="red-container !min-h-[230px]">
+        <p className="tag">{formatDate(post._createdAt)}</p>
         <h1 className="heading">{post.title}</h1>
-        <p className="sub-heading max-w-5xl!">{post.description}</p>
+        <p className="sub-heading !max-w-5xl">{post.description}</p>
       </section>
 
+      {/* CONTENT */}
       <section className="section_container">
-        <img
+        <Image
           src={post.image}
           alt="thumbnail"
+          width={1200}
+          height={630}
+          priority
           className="w-full max-w-lg h-auto rounded-xl mx-auto"
         />
 
@@ -58,7 +72,7 @@ const session = await auth();
 
               <div>
                 <p className="text-24-bold">{post.author.name}</p>
-                <p className="text-16-medium text-black-300!">
+                <p className="text-16-medium !text-black-300">
                   @{post.author.username}
                 </p>
               </div>
@@ -68,6 +82,7 @@ const session = await auth();
           </div>
 
           <h3 className="text-30-bold">Pitch Details</h3>
+
           {parsedContent ? (
             <article
               className="prose max-w-5xl font-work-sans break-all"
@@ -79,7 +94,22 @@ const session = await auth();
         </div>
 
         <hr className="divider" />
+
+        {/* EDITOR PICKS */}
+        {editorPosts.length > 0 && (
+          <div className="max-w-4xl mx-auto">
+            <p className="text-30-semibold">Editor Picks</p>
+
+            <ul className="mt-7 card_grid-sm">
+              {editorPosts.map((post, index) => (
+                <StartupCard key={`${post._id}-${index}`} post={post} />
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
+
+      {/* VIEWS */}
       <Suspense fallback={<Skeleton className="view_skeleton" />}>
         <View id={id} />
       </Suspense>

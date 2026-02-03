@@ -21,7 +21,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
       <section className="profile_container">
         <div className="profile_card">
           <div className="profile_title">
-            <h3 className="text-24-black uppercase text-center line-clamp-1">
+            <h3 className="font-bold uppercase text-center line-clamp-1">
               {user.name}
             </h3>
           </div>
@@ -31,7 +31,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             <AvatarFallback className="text-6xl">{user.name?.charAt(0)}</AvatarFallback>
           </Avatar>
 
-          <p className="text-30-extrabold mt-7 text-center">
+          <p className="font-semibold text-white mt-7 text-center line-clamp-1 px-4">
             @{user?.username}
           </p>
           <p className="mt-1 text-center text-14-normal">{user?.bio}</p>

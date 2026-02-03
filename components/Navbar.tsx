@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { auth, signOut, signIn } from "@/auth";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Plus, LogOut } from "lucide-react";
 
 
 const Navbar = async () => {
@@ -17,8 +18,9 @@ const Navbar = async () => {
         <div className="flex items-center gap-5 text-black">
           {session && session?.user ? (
             <>
-              <Link href="/startup/create">
+              <Link href="/startup/create" className="flex items-center">
                 <span className="max-sm:hidden login">Create</span>
+                <Plus className="sm:hidden size-6" />
               </Link>
 
               <form
@@ -28,8 +30,9 @@ const Navbar = async () => {
                   await signOut({ redirectTo: "/" });
                 }}
               >
-                <button type="submit" suppressHydrationWarning>
+                <button type="submit" className="flex items-center" suppressHydrationWarning>
                   <span className="max-sm:hidden login">Logout</span>
+                  <LogOut className="sm:hidden size-6" />
                 </button>
               </form>
 
