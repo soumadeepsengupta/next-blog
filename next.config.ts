@@ -20,10 +20,24 @@ const nextConfig: NextConfig = {
   devIndicators: {
     position: "bottom-right",
   },
+  output: "standalone",
   outputFileTracingRoot: __dirname,
   outputFileTracingIncludes: {
-    "/*": ["./node_modules/**/*"],
+    "/api/**/*": ["./sanity/**/*"],
   },
+  outputFileTracingExcludes: {
+    "*": [
+      "node_modules/@swc/core-linux-x64-gnu",
+      "node_modules/@swc/core-linux-x64-musl",
+      "node_modules/@esbuild/linux-x64",
+      ".git/**/*",
+    ],
+  },
+  serverExternalPackages: [
+    "@sanity/client",
+    "groq",
+    "next-sanity",
+  ],
 };
 
 export default withSentryConfig(nextConfig, {
