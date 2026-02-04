@@ -21,10 +21,8 @@ const nextConfig: NextConfig = {
     position: "bottom-right",
   },
   outputFileTracingRoot: __dirname,
-  experimental: {
-    outputFileTracingIncludes: {
-      "/*": ["./node_modules/**/*"],
-    },
+  outputFileTracingIncludes: {
+    "/*": ["./node_modules/**/*"],
   },
 };
 
